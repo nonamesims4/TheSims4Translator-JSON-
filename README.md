@@ -9,7 +9,7 @@
 
 ### 1. JSON ⇒ CSV変換
 - TS4Tで出力したJSONファイルをCSV形式に変換  
-- Googleスプレッドシートでの一括翻訳に対応(使い方は下記)  
+- <a href="https://docs.google.com/spreadsheets/d/1kY-hnLaPf46MG7BWU3xcOKhk441BC0_LOjXHwEDn9cw/edit?gid=170644196#gid=170644196" target="_blank">Googleスプレッドシート</a>での一括翻訳に対応(使い方は下記)  
 
 ### 2. {M0.he}{F0.she}`のようなプレースホルダー修正→<a href="https://nonamesims4.github.io/The-Sims-4-MOD-JSON-/" target="_blank">Sims4専用JSONファイルタグ置き換えツール</a>
 
@@ -45,7 +45,7 @@
 
 ---
 
-## 🌐 Googleスプレッドシート翻訳ツール
+## 🌐<a href="https://docs.google.com/spreadsheets/d/1kY-hnLaPf46MG7BWU3xcOKhk441BC0_LOjXHwEDn9cw/edit?gid=170644196#gid=170644196" target="_blank">Googleスプレッドシート</a>  
 
 **使い方**
 1. Googleスプレッドシートを開く
