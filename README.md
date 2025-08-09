@@ -45,7 +45,7 @@
 
 ---
 
-## 🌐<a href="https://docs.google.com/spreadsheets/d/1kY-hnLaPf46MG7BWU3xcOKhk441BC0_LOjXHwEDn9cw/edit?gid=170644196#gid=170644196" target="_blank">Googleスプレッドシート</a>  
+## 🌐<a href="https://docs.google.com/spreadsheets/d/1kY-hnLaPf46MG7BWU3xcOKhk441BC0_LOjXHwEDn9cw/edit?gid=170644196#gid=170644196" target="_blank">翻訳用Googleスプレッドシート</a>  
 
 **使い方**
 1. Googleスプレッドシートを開く
