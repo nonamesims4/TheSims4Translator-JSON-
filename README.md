@@ -1,6 +1,6 @@
 # 🛠 The Sims 4 Translator 専用 JSON変換ツール
 
-このツールは **The Sims 4 Translator** 用の多言語MOD JSONファイルを、効率よく変換・編集できるウェブツールです。  
+このツールは **The Sims 4 Translator** 用からエクスポートできるJSONファイルを、効率よく変換・編集しインポートしすぐ翻訳パッケージにできるツールです。  
 **インストール不要・ブラウザだけで動作**し、翻訳作業がより簡単＆スムーズになります。
 
 ## 🌟<a href="https://nonamesims4.github.io/TheSims4Translator-JSON-/" target="_blank">ツールはこちら</a>  
