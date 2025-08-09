@@ -3,6 +3,8 @@
 このツールは **The Sims 4 Translator** 用の多言語MOD JSONファイルを、効率よく変換・編集できるウェブツールです。  
 **インストール不要・ブラウザだけで動作**し、翻訳作業がより簡単＆スムーズになります。
 
+## 🌟<a href="https://nonamesims4.github.io/TheSims4Translator-JSON-/" target="_blank">ツールはこちら</a>  
+
 ---
 
 ## ✨ 主な機能
