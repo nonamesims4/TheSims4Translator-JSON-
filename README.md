@@ -11,9 +11,8 @@
 - TS4Tで出力したJSONファイルをCSV形式に変換  
 - Googleスプレッドシートでの一括翻訳に対応(使い方は下記)  
 
-### 2. タグ正規化（別リンク）
+### 2. {M0.he}{F0.she}`のようなプレースホルダー修正→<a href="https://nonamesims4.github.io/The-Sims-4-MOD-JSON-/" target="_blank">Sims4専用JSONファイルタグ置き換えツール</a>
 
-<a href="https://nonamesims4.github.io/The-Sims-4-MOD-JSON-/" target="_blank">Sims4専用JSONファイルタグ置換ツール</a>　
 - `{M0.he}` や `{F0.she}` などの英語プレースホルダーを、日本語タグへ自動変換  
 
 ### 3. 翻訳済JSON ⇒ MOD用JSON変換
