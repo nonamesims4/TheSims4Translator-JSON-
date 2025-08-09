@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheSims4Translator専用JSON変換ツール</title>
+    <!-- Tailwind CSSを読み込み -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons を読み込み -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+        }
+        .text-purple-600 { color: #8B5CF6; }
+        .bg-purple-600 { background-color: #8B5CF6; }
+        .hover\:bg-purple-700:hover { background-color: #7C3AED; }
+        .focus\:ring-purple-500:focus { box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4 transition-colors duration-300 ease-in-out">
+
+
+    <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-lg w-full space-y-4 border border-gray-200 transition-colors duration-300 ease-in-out">
+
+
+        <!-- ダークモード切り替えボタン -->
+        <div class="flex justify-end">
+            <button id="darkModeToggle" class="p-2 rounded-full text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                <i class="fas fa-moon text-lg"></i>
+            </button>
+        </div>
+
+
+        <!-- タイトル -->
+        <h1 class="text-2xl md:text-3xl font-extrabold text-center text-gray-800 transition-colors duration-300 ease-in-out">
+            TheSims4Translator専用<br>JSON変換ツール
+        </h1>
+
+
+        <!-- 説明文 -->
+        <p class="text-center text-gray-600 leading-relaxed text-sm transition-colors duration-300 ease-in-out">
+            このツールは、TheSims4Translatorが出力するJSON形式ファイルからCSVの生成、翻訳済みJSONからTheSims4Translator用JSONファイルへの変換、そしてファイルはそのまますぐにTheSims4Translatorにインポートできます。詳しい使い方つき！HTML単体で動作し、インターネット接続不要で簡単に使えます。
+        </p>
+
+
+        <!-- JSON → CSV 変換セクション -->
+        <section aria-label="JSONからCSVへの変換" class="border border-purple-200 rounded-xl p-4 md:p-6 bg-purple-50 space-y-4 transition-colors duration-300 ease-in-out">
+            <h2 class="text-lg md:text-xl font-bold text-center text-purple-700 mb-2 flex items-center justify-center space-x-2 transition-colors duration-300 ease-in-out">
+                <i class="fas fa-file-csv"></i>
+                <span>1. JSONからCSVを生成・ダウンロード</span>
+            </h2>
+            <p class="text-left text-gray-700 text-xs md:text-sm transition-colors duration-300 ease-in-out">
+                元のJSONをアップロードして、CSVファイルを生成・ダウンロードします。その後、<a href="https://docs.google.com/spreadsheets/d/1kY-hnLaPf46MG7BWU3xcOKhk441BC0_LOjXHwEDn9cw/edit?gid=170644196#gid=170644196" target="_blank" rel="noopener noreferrer" class="text-purple-600 underline font-semibold">Googleスプレッドシート（翻訳ツール）</a>で一括翻訳ができます。
+            </p>
+            <label for="jsonInput" class="block text-sm font-medium text-gray-700">元のJSONを選択（Locale + Entries）</label>
+            <input type="file" id="jsonInput" accept=".json" class="block w-full text-xs md:text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white file:bg-purple-100 file:text-purple-700 file:border-0 file:rounded-full file:px-4 file:py-1 file:font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300 ease-in-out" />
+            <button id="downloadCsvBtn" disabled class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-xl shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 ease-in-out flex items-center justify-center space-x-2 text-sm">
+                <i class="fas fa-download"></i>
+                <span>CSVに変換してダウンロード</span>
+            </button>
+            <div class="bg-purple-100 p-3 rounded-lg text-sm mt-1">
+                <h3 class="font-bold text-purple-700 mb-1">【Googleスプレッドシートでの翻訳方法】</h3>
+                <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                    <li>「ファイル」メニューから「インポート」を選び、CSVファイルを読み込みます。</li>
+                    <li>インポート時の設定で「現在のシートを置換する」を選択してください。</li>
+                    <li>スプレッドシートの上部にあるカスタムメニューから「翻訳実行」を選ぶと、翻訳処理が始まります。</li>
+                    <li>初めて使う場合は「権限の承認」ダイアログが表示されますので、許可してください。</li>
+                    <li>翻訳が終わったら、カスタムメニューの「jsonファイルをダウンロード」から翻訳結果を保存してください。</li>
+                </ol>
+            </div>
+            <p id="jsonToCsvMsg" class="text-center text-red-600 min-h-[1.5em] font-semibold text-xs"></p>
+        </section>
+
+
+        <!-- 便利な関連ツールセクション -->
+        <section class="border border-gray-300 rounded-xl p-4 md:p-6 bg-gray-50 space-y-2 transition-colors duration-300 ease-in-out">
+            <h2 class="text-lg md:text-xl font-bold text-center text-gray-700 mb-2 flex items-center justify-center space-x-2 transition-colors duration-300 ease-in-out">
+                <i class="fas fa-link"></i>
+                <span>便利な関連ツール</span>
+            </h2>
+            <p class="text-left text-gray-600 text-xs md:text-sm leading-relaxed transition-colors duration-300 ease-in-out">
+                Googleスプレッドシートの翻訳機能では`{M0.he}{F0.she}`のようなプレースホルダーは翻訳されません。下記サイトでは、翻訳済みのJSONをアップロードして、プレースホルダーを自動的に修正し、新しいJSONファイルをダウンロードできます。リライトもあわせてどうぞ。
+            </p>
+            <div class="flex flex-col space-y-1">
+                <a href="https://nonamesims4.github.io/The-Sims-4-MOD-JSON-/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-semibold text-sm transition-colors duration-200">
+                    <i class="fas fa-magic mr-2"></i>Sims4専用JSONファイル タグ置換ツール
+                </a>
+                <a href="https://nonamesims4.github.io/Sims4JSON-AI-/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-semibold text-sm transition-colors duration-200">
+                    <i class="fas fa-robot mr-2"></i>Sims4JSONファイル専用AI依頼文付きリライトツール
+                </a>
+            </div>
+        </section>
+
+
+        <!-- 翻訳済JSON → 元形式JSONに変換セクション -->
+        <section aria-label="翻訳済JSONから元形式JSONへの復元" class="border border-green-200 rounded-xl p-4 md:p-6 bg-green-50 space-y-4 transition-colors duration-300 ease-in-out">
+            <h2 class="text-lg md:text-xl font-bold text-center text-green-700 mb-2 flex items-center justify-center space-x-2 transition-colors duration-300 ease-in-out">
+                <i class="fas fa-sync-alt"></i>
+                <span>2. 翻訳済みJSONからTheSims4Translator用JSONへ変換</span>
+            </h2>
+            <p class="text-left text-gray-700 text-xs md:text-sm transition-colors duration-300 ease-in-out">
+                翻訳済JSONファイルをアップロードしてください。TheSims4Translatorが出力するJSONに変換し自動的にダウンロードします。そのJSONファイルをTheSims4Translatorにインポートすると翻訳パッケージとして使用できます（別途Sims4StudioなどでGroupを変更してください）。
+            </p>
+            <label for="editedJsonInput" class="block text-sm font-medium text-gray-700">翻訳済み小文字key/value構造のJSONを選択</label>
+            <input type="file" id="editedJsonInput" accept=".json" class="block w-full text-xs md:text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white file:bg-green-100 file:text-green-700 file:border-0 file:rounded-full file:px-4 file:py-1 file:font-semibold focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-300 ease-in-out" />
+            <label for="localeInput" class="block text-sm font-medium text-gray-700 mt-4">Locale設定（例: JPN_JP）</label>
+            <input type="text" id="localeInput" value="JPN_JP" class="block w-full text-xs md:text-sm text-gray-900 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-300 ease-in-out" />
+            <button id="downloadJsonBtn" disabled class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 ease-in-out flex items-center justify-center space-x-2 text-sm">
+                <i class="fas fa-file-code"></i>
+                <span>元の形式JSONに変換してダウンロード</span>
+            </button>
+            <p id="csvToJsonMsg" class="text-center text-red-600 min-h-[1.5em] font-semibold text-xs"></p>
+        </section>
+
+
+    </div>
+
+
+    <div class="text-center mt-8 space-y-2 text-sm text-gray-500 transition-colors duration-300 ease-in-out">
+        <a href="https://github.com/nonamesims4" target="_blank" rel="noopener noreferrer" class="hover:text-gray-700 underline">他ツール🌟nonamesims4github🌟</a>
+        <br>
+        <a href="https://www.patreon.com/posts/da-shitawu-yi-135996994" target="_blank" rel="noopener noreferrer" class="hover:text-gray-700 underline">他ツール簡易まとめ🌟patron🌟</a>
+        <br>
+        <a href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer" class="hover:text-gray-700 underline">このページの作成デザイン🌟gemini🌟</a>
+        <br>
+        <a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-700 underline">このページのコード作成🌟perplexity🌟</a>
+    </div>
+
+
+    <script>
+        // ダークモード切り替え機能
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        // システム設定をチェックして初期モードを設定
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+
+        // JSON → CSV 変換機能
+        const jsonInput = document.getElementById('jsonInput');
+        const downloadCsvBtn = document.getElementById('downloadCsvBtn');
+        const jsonToCsvMsg = document.getElementById('jsonToCsvMsg');
+        let originalEntries = null;
+
+
+        jsonInput.addEventListener('change', () => {
+            jsonToCsvMsg.textContent = '';
+            downloadCsvBtn.disabled = true;
+            originalEntries = null;
+
+
+            const file = jsonInput.files[0];
+            if (!file) return;
+
+
+            if (file.size > 10 * 1024 * 1024) {
+                jsonToCsvMsg.textContent = 'エラー: ファイルサイズが10MBを超えています。';
+                return;
+            }
+
+
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data.Entries || !Array.isArray(data.Entries)) {
+                        throw new Error('"Entries" 配列が見つかりません。');
+                    }
+                    originalEntries = data.Entries;
+                    jsonToCsvMsg.textContent = `"Entries" 配列を ${originalEntries.length} 件検出しました。`;
+                    downloadCsvBtn.disabled = false;
+                } catch (err) {
+                    jsonToCsvMsg.textContent = 'エラー: ' + err.message;
+                }
+            };
+            reader.onerror = () => {
+                jsonToCsvMsg.textContent = 'ファイルの読み込みに失敗しました。';
+            };
+            reader.readAsText(file, 'UTF-8');
+        });
+
+
+        downloadCsvBtn.addEventListener('click', () => {
+            if (!originalEntries) return;
+
+
+            downloadCsvBtn.disabled = true;
+            jsonToCsvMsg.textContent = '';
+
+
+            try {
+                const header = ['Key', 'Value'];
+                const csvRows = [header.join(',')];
+
+
+                originalEntries.forEach(entry => {
+                    const key = (entry.Key ?? '').toString().replace(/"/g, '""');
+                    const value = (entry.Value ?? '').toString().replace(/"/g, '""');
+                    csvRows.push(`"${key}","${value}"`);
+                });
+
+
+                const csvString = csvRows.join('\r\n');
+
+
+                const blob = new Blob([csvString], { type: 'text/csv;charset=UTF-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Entries.csv';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    downloadCsvBtn.disabled = false;
+                    jsonToCsvMsg.textContent = 'CSVファイルが正常にダウンロードされました。';
+                }, 0);
+            } catch {
+                jsonToCsvMsg.textContent = 'エラー: CSV変換中に問題が発生しました。';
+                downloadCsvBtn.disabled = false;
+            }
+        });
+
+
+        // 翻訳済み小文字JSON → 元形式JSONに変換
+        const editedJsonInput = document.getElementById('editedJsonInput');
+        const downloadJsonBtn = document.getElementById('downloadJsonBtn');
+        const csvToJsonMsg = document.getElementById('csvToJsonMsg');
+        const localeInput = document.getElementById('localeInput');
+        let editedEntries = null;
+
+
+        editedJsonInput.addEventListener('change', () => {
+            csvToJsonMsg.textContent = '';
+            downloadJsonBtn.disabled = true;
+            editedEntries = null;
+
+
+            const file = editedJsonInput.files[0];
+            if (!file) return;
+
+
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    const data = JSON.parse(e.target.result);
+
+
+                    if (Array.isArray(data)) {
+                        editedEntries = data;
+                    } else if (data.entries && Array.isArray(data.entries)) {
+                        editedEntries = data.entries;
+                    } else {
+                        throw new Error('小文字のkey/value配列(JSON配列)を含むファイルを選択してください。');
+                    }
+
+
+                    if (!editedEntries.length) {
+                        throw new Error('Entriesが空です。');
+                    }
+
+
+                    csvToJsonMsg.textContent = `${editedEntries.length} 件の小文字 key/value を検出。Localeを指定してJSONを生成できます。`;
+                    downloadJsonBtn.disabled = false;
+                } catch (err) {
+                    csvToJsonMsg.textContent = 'エラー: ' + err.message;
+                }
+            };
+            reader.onerror = () => {
+                csvToJsonMsg.textContent = 'ファイルの読み込みに失敗しました。';
+            };
+            reader.readAsText(file, 'UTF-8');
+        });
+
+
+        downloadJsonBtn.addEventListener('click', () => {
+            if (!editedEntries) return;
+
+
+            downloadJsonBtn.disabled = true;
+            csvToJsonMsg.textContent = '';
+
+
+            const locale = (localeInput.value || 'JPN_JP').trim() || 'JPN_JP';
+
+
+            try {
+                const newEntries = editedEntries.map(e => ({
+                    Key: e.key ?? '',
+                    Value: e.value ?? ''
+                }));
+
+
+                const output = {
+                    Locale: locale,
+                    Entries: newEntries
+                };
+
+
+                const jsonStr = JSON.stringify(output, null, 2);
+
+
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'translated_entries.json';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    downloadJsonBtn.disabled = false;
+                    csvToJsonMsg.textContent = 'JSONファイルが正常にダウンロードされました。';
+                }, 0);
+            } catch {
+                csvToJsonMsg.textContent = 'エラー: JSON変換中に問題が発生しました。';
+                downloadJsonBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
