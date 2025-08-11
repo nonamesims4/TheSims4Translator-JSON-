@@ -50,7 +50,7 @@
 ## 🌐<a href="https://docs.google.com/spreadsheets/d/1kY-hnLaPf46MG7BWU3xcOKhk441BC0_LOjXHwEDn9cw/edit?gid=170644196#gid=170644196" target="_blank">翻訳用Googleスプレッドシート</a>  
 
 **使い方**
-1. Googleスプレッドシートを開く
+1. Googleスプレッドシートを開いてファイルの中からコピーを作成を選ぶ。Apps Script ファイルと機能もコピーと出るのでそのままコピー。
 2. 「ファイル」→「インポート」でCSVを読み込み  
    「現在のシートを置換」を選択
 3. カスタムメニューから【翻訳実行】を選択
